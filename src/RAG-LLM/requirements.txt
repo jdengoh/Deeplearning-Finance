@@ -10,11 +10,11 @@ jsonpatch==1.33
 jsonpointer==3.0.0
 langchain-core==0.3.40
 langchain-ollama==0.2.3
+langchain-chroma==0.1.2
 langsmith==0.3.11
 ollama==0.4.7
 orjson==3.10.15
 packaging==24.2
-pip==5.0.1
 pydantic==2.10.6
 pydantic_core==2.27.2
 PyYAML==6.0.2
