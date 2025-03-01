@@ -9,7 +9,6 @@ from pathlib import Path
 import os
 import sys
 
-sys.path.append(f"{os.getcwd()}/src/models/LSTM")
 from LSTM_model_final import monthly_df, predictions
 
 load_dotenv()
