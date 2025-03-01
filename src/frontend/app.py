@@ -5,7 +5,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
+from pathlib import Path
 import os
+import sys
+
+sys.path.append(f"{os.getcwd()}/src/models/LSTM")
+from LSTM_model_final import monthly_df, predictions
 
 load_dotenv()
 
@@ -17,11 +22,14 @@ def get_market_data(stock_symbol):
     data = stock.history(period="5d")
     return data
 
-# Sample function to plot LSTM predictions (replace with your actual model predictions)
+# Function to plot LSTM predictions
 def plot_lstm_predictions(actual_data, predicted_data):
     plt.figure(figsize=(10, 6))
     plt.plot(actual_data.index, actual_data['Close'], label='Actual Prices', color='blue')
-    plt.plot(predicted_data.index, predicted_data['Close'], label='Predicted Prices', color='red', linestyle='--')
+    plt.plot(predicted_data.index, predicted_data['Predicted_Close'], label='Predicted Prices', color='red', linestyle='--')
+    plt.xlabel("Date")
+    plt.ylabel("Close Price")
+    plt.xticks(rotation=45)
     plt.title("LSTM Predictions vs Actual Data")
     plt.legend()
     st.pyplot(plt)
@@ -50,18 +58,23 @@ else:
 
 # Section 2: LSTM Model Predictions (Plot)
 st.header("LSTM Model Predictions")
-if stock_symbol:
-    predicted_data = market_data.copy()  # Just an example, replace with your LSTM model predictions
-    predicted_data['Close'] = predicted_data['Close'] * np.random.uniform(0.98, 1.02, len(predicted_data))  # Fake prediction
-    plot_lstm_predictions(market_data, predicted_data)
-else:
-    st.warning("Please enter a stock symbol to see LSTM predictions.")
+
+actual_data = monthly_df[['Close']].copy()
+predicted_data = actual_data.copy()
+predicted_data['Predicted_Close'] = predictions.flatten()
+predicted_data.index = monthly_df.index
+
+plot_lstm_predictions(actual_data, predicted_data)
+
+# Dummy Button for Re-running the Model
+st.subheader("Re-Run Model (Work in Progress)")
+st.button("Re-run the Model")
 
 # Section 3: Latest Market News
 st.header("Latest Market News")
 news = get_latest_market_news(stock_symbol)
 for article in news:
-    st.markdown(f"[{article['title']}]({article['link']})")
+    st.markdown(f"[{article['headline']}]({article['link']})")
 
 # Section 4: Predefined LLM Header Queries
 st.header("Header Queries for LLM")
