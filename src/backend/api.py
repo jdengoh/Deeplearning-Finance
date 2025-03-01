@@ -7,6 +7,7 @@ from langchain_community.document_loaders import DataFrameLoader
 from dotenv import load_dotenv
 import sys
 import os
+import re
 import pandas as pd
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.prompts import ChatPromptTemplate
@@ -41,10 +42,8 @@ system_prompt = (
     "You are an assistant for financial question-answering tasks. "
     "Use the following retrieved stock market headlines to answer "
     "the user's question."
-    "If the information is irrelevant or does not help"
-    "answer the user's question and provide financial analysis based on the what you know"
-    "Do not let the user know that you are receiving help from the headlines."
-    "Just provide their information like an expert in the field."
+    "Ignore headlines that are not relevant to the user's question. "
+    "If you can't find the answer, just provide their information like an expert in the field."
     "\n\n"
     "{context}"
 )
@@ -61,27 +60,12 @@ rag_chain = create_retrieval_chain(vector_retriever, question_answer_chain)
 class QueryRequest(BaseModel):
     question: str
 
-@app.post("/deepseek")
+
+@app.post("/deepseek")  
 def generate_trade_signal(request: QueryRequest):
     print(f"🔍 Received query: {request.question}")
 
     # Retrieve relevant context
     response = rag_chain.invoke({"input": request.question})
-
+    response = response["answer"]
     return {"response": response}
-
-# def ask_deepseek(question):
-
- 
-
-#     response = ollama.chat(
-#         model="deepseek-r1:1.5b",
-#         messages=[{"role": "user", "content": question}]
-#     )
-#     return response["message"]["content"]  # Extracts the model's response
-
-# # API Endpoint for DeepSeek-R1
-# @app.post("/deepseek")
-# def generate_trade_signal(request: QueryRequest):
-#     response = ask_deepseek(request.question)
-#     return {"response": response}
