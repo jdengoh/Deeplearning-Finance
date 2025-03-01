@@ -4,6 +4,10 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 st.title("AI-Powered Trading Assistant")
 
@@ -22,15 +26,16 @@ def plot_lstm_predictions(actual_data, predicted_data):
     plt.legend()
     st.pyplot(plt)
 
-# Sample function to fetch latest market news (placeholder)
-def get_latest_market_news():
-    # In a real scenario, you could fetch news from a finance API or RSS feed.
-    news = [
-        {"headline": "Global Markets Rise Amid Economic Recovery", "link": "https://example.com/1"},
-        {"headline": "Tech Stocks Lead the Charge on Wall Street", "link": "https://example.com/2"},
-        {"headline": "Oil Prices Surge as OPEC Tightens Supply", "link": "https://example.com/3"},
-    ]
-    return news
+# Function to fetch latest market news from FastAPI
+def get_latest_market_news(stock_symbol):
+    news_api_key = os.getenv("NEWS_API_KEY")
+    api_url = f"http://127.0.0.1:8000/news/?symbol={stock_symbol}&api_token={news_api_key}&limit=5"
+    response = requests.get(api_url)
+    
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return [{"headline": "Error fetching news", "link": "#"}]
 
 # User input for stock symbol
 stock_symbol = st.sidebar.text_input("Enter Stock Symbol", value="AAPL")
@@ -54,9 +59,9 @@ else:
 
 # Section 3: Latest Market News
 st.header("Latest Market News")
-news = get_latest_market_news()
+news = get_latest_market_news(stock_symbol)
 for article in news:
-    st.markdown(f"[{article['headline']}]({article['link']})")
+    st.markdown(f"[{article['title']}]({article['link']})")
 
 # Section 4: Predefined LLM Header Queries
 st.header("Header Queries for LLM")
