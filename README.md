@@ -45,7 +45,7 @@ ollama serve
 If you haven't downloaded DeepSeek-R1 yet:
 
 ```bash
-ollama pull deepseek/deepseek-r1:1.5b
+ollama pull deepseek-r1:1.5b
 ```
 
 ### 2. Start the FastAPI Backend
