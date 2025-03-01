@@ -51,8 +51,7 @@ ollama pull deepseek-r1:1.5b
 ### 2. Start the FastAPI Backend
 
 ```bash
-cd backend
-uvicorn api:app --reload
+uvicorn backend.api:app --reload
 ```
 
 - Runs the API at: `http://127.0.0.1:8000`
@@ -62,7 +61,6 @@ uvicorn api:app --reload
 In a new terminal:
 
 ```bash
-cd frontend
-streamlit run app.py
+streamlit run frontend/app.py
 ```
 - Access the app at: `http://localhost:8501`
