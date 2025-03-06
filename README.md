@@ -3,6 +3,15 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
 
+## Work-in-progress
+
+Currently, this project is going through some changes
+
+[] reviewing of workflow
+[] reviewing of LSTM and Sentimental Analysis model
+[] web scrapping implementation (periodic)
+[] different LLM models
+
 ## Project Structure
 
 *work in progress*
