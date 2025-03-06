@@ -9,7 +9,7 @@ from pathlib import Path
 import os
 import sys
 
-from LSTM_model_final import monthly_df, predictions
+# from model.LSTM.LSTM_model_final import monthly_df, predictions
 
 load_dotenv()
 
@@ -55,25 +55,25 @@ if stock_symbol:
 else:
     st.warning("Please enter a valid stock symbol.")
 
-# Section 2: LSTM Model Predictions (Plot)
-st.header("LSTM Model Predictions")
+# # Section 2: LSTM Model Predictions (Plot)
+# st.header("LSTM Model Predictions")
 
-actual_data = monthly_df[['Close']].copy()
-predicted_data = actual_data.copy()
-predicted_data['Predicted_Close'] = predictions.flatten()
-predicted_data.index = monthly_df.index
+# actual_data = monthly_df[['Close']].copy()
+# predicted_data = actual_data.copy()
+# predicted_data['Predicted_Close'] = predictions.flatten()
+# predicted_data.index = monthly_df.index
 
-plot_lstm_predictions(actual_data, predicted_data)
+# plot_lstm_predictions(actual_data, predicted_data)
 
 # Dummy Button for Re-running the Model
-st.subheader("Re-Run Model (Work in Progress)")
-st.button("Re-run the Model")
+# st.subheader("Re-Run Model (Work in Progress)")
+# st.button("Re-run the Model")
 
-# Section 3: Latest Market News
-st.header("Latest Market News")
-news = get_latest_market_news(stock_symbol)
-for article in news:
-    st.markdown(f"[{article['headline']}]({article['link']})")
+# # Section 3: Latest Market News
+# st.header("Latest Market News")
+# news = get_latest_market_news(stock_symbol)
+# for article in news:
+#     st.markdown(f"[{article['headline']}]({article['link']})")
 
 # Section 4: Predefined LLM Header Queries
 st.header("Header Queries for LLM")

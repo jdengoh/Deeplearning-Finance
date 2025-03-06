@@ -20,7 +20,7 @@ csv_path = os.path.join(os.path.dirname(__file__), "..", "data", "headlines.csv"
 from model.RAG_LLM.ollama_embeddings import load_database
 
 
-load_dotenv()
+# load_dotenv()
 
 app = FastAPI()
 
