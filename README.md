@@ -6,11 +6,10 @@
 ## Work-in-progress
 
 Currently, this project is going through some changes
-
-[] reviewing of workflow
-[] reviewing of LSTM and Sentimental Analysis model
-[] web scrapping implementation (periodic)
-[] different LLM models
+- [ ] reviewing of workflo
+- [ ] reviewing of LSTM and Sentimental Analysis model
+- [ ] web scrapping implementation (periodic)
+- [ ] different LLM models
 
 ## Project Structure
 
